@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AM Vadodara Satsangi Portal</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </head>
+  <body>
+    <main class="page">
+      <header class="masthead">
+        <p class="eyebrow">Anoopam Mission · Vadodara</p>
+        <h1>Phone Directory</h1>
+        <p class="subtitle">Secure member directory for approved Satsang Mandal contacts.</p>
+      </header>
+
+      <section id="loginPanel" class="panel login-panel">
+        <div class="login-icon" aria-hidden="true">🔐</div>
+        <h2>Sign in to continue</h2>
+        <p class="muted">Use the Google account approved by the portal administrator.</p>
+        <div id="signInButton" class="sign-in-area"></div>
+        <p id="loginNotice" class="notice" role="status" aria-live="polite">Preparing secure sign-in…</p>
+      </section>
+
+      <section id="directoryPanel" class="directory-panel" hidden>
+        <div class="toolbar">
+          <label class="search-wrap">
+            <span aria-hidden="true">🔍</span>
+            <input
+              id="searchInput"
+              class="search"
+              type="search"
+              autocomplete="off"
+              placeholder="Search by name"
+              aria-label="Search directory by name"
+            />
+          </label>
+          <div id="resultCount" class="result-count" aria-live="polite"></div>
+        </div>
+        <div id="peopleList" class="people-list"></div>
+        <p class="footer-note">Directory access is limited to approved members only.</p>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
