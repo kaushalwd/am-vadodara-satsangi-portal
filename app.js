@@ -42,26 +42,18 @@ function submitTokenToAppsScript(idToken) {
   const frame = document.createElement('iframe');
   frame.name = frameName;
   frame.title = 'Secure directory response';
+  frame.referrerPolicy = 'no-referrer';
   frame.hidden = true;
 
-  const form = document.createElement('form');
-  form.method = 'POST';
-  form.action = APPS_SCRIPT_WEB_URL;
-  form.target = frameName;
-  form.hidden = true;
-  Object.entries({ idToken, nonce }).forEach(([name, value]) => {
-    const input = document.createElement('input');
-    input.type = 'hidden';
-    input.name = name;
-    input.value = value;
-    form.appendChild(input);
-  });
+  const requestUrl = new URL(APPS_SCRIPT_WEB_URL);
+  requestUrl.searchParams.set('action', 'directory');
+  requestUrl.searchParams.set('idToken', idToken);
+  requestUrl.searchParams.set('nonce', nonce);
 
   let timeoutId;
   const cleanup = () => {
     window.removeEventListener('message', onMessage);
     window.clearTimeout(timeoutId);
-    form.remove();
     frame.remove();
   };
   const onMessage = (event) => {
@@ -79,8 +71,8 @@ function submitTokenToAppsScript(idToken) {
     setNotice('The directory server did not respond. Please try again.', 'error');
   }, 30000);
   window.addEventListener('message', onMessage);
-  document.body.append(frame, form);
-  form.submit();
+  document.body.append(frame);
+  frame.src = requestUrl.toString();
 }
 
 function showDirectory(result) {
