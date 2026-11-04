@@ -42,13 +42,15 @@ function submitTokenToAppsScript(idToken) {
   const frame = document.createElement('iframe');
   frame.name = frameName;
   frame.title = 'Secure directory response';
-  frame.hidden = true;
+  frame.setAttribute('aria-hidden', 'true');
+  frame.style.cssText = 'position:fixed;left:-10px;top:-10px;width:1px;height:1px;border:0;opacity:0;pointer-events:none';
 
   const form = document.createElement('form');
   form.method = 'POST';
   form.action = APPS_SCRIPT_WEB_URL;
   form.target = frameName;
-  form.hidden = true;
+  form.setAttribute('aria-hidden', 'true');
+  form.style.cssText = 'position:fixed;left:-10px;top:-10px;width:1px;height:1px;overflow:hidden';
   Object.entries({ idToken, nonce }).forEach(([name, value]) => {
     const input = document.createElement('input');
     input.type = 'hidden';
