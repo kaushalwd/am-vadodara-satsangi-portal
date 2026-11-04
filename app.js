@@ -68,7 +68,7 @@ function submitTokenToAppsScript(idToken) {
   };
   const onMessage = (event) => {
     const trustedAppsScriptOrigin = event.origin === 'https://script.google.com'
-      || (event.origin.startsWith('https://') && new URL(event.origin).hostname.endsWith('.script.googleusercontent.com'));
+      || (event.origin.startsWith('https://') && new URL(event.origin).hostname.endsWith('-script.googleusercontent.com'));
     if (!trustedAppsScriptOrigin || !event.data || event.data.type !== 'portal-response' || event.data.nonce !== nonce) return;
     cleanup();
     if (event.data.error) setNotice(event.data.error, 'error');
